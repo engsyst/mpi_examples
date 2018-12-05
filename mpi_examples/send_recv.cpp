@@ -12,6 +12,7 @@ void send_recv_example() {
 	}
 
 	// for debug only
+	fflush(stdout);
 	MPI_Barrier(MPI_COMM_WORLD);
 
 	MPI_Status status;
@@ -40,6 +41,7 @@ void sendrecv_example() {
 	}
 
 	// for debug only
+	fflush(stdout);
 	MPI_Barrier(MPI_COMM_WORLD);
 
 	int recv_buf[2];

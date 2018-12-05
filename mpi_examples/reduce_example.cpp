@@ -24,10 +24,15 @@ void reduce_example() {
 	}
 
 	// for debug only
+	fflush(stdout);
 	MPI_Barrier(MPI_COMM_WORLD);
+
 	int data_size = 1001;
 	int local_data_size = data_size / size;
-	int last_local_data_size = data_size % size + local_data_size;
+	if (local_data_size * size != data_size) {
+		local_data_size++;
+	}
+	int last_local_data_size = data_size - local_data_size * (size - 1);
 	if (rank == size - 1) {
 		local_data_size = last_local_data_size;
 	}
@@ -51,8 +56,6 @@ void reduce_example() {
 	}
 
 	MPI_Scatterv(data, sends, displaces, MPI_DOUBLE, local_buf, local_data_size, MPI_DOUBLE, root, MPI_COMM_WORLD);
-	//printf_s("Rank %d, local_buf: ", rank);
-	//print(local_buf, local_data_size);
 
 	double localMax = max(local_buf, local_data_size);
 	printf_s("Rank %d, localMax: %7.4f\n", rank, localMax);

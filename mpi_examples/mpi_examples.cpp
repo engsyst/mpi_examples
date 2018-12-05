@@ -8,6 +8,7 @@
 #include "send_recv.h"
 #include "arrayutils.h"
 #include "reduce_example.h"
+#include "topology_example.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]) {
 	code = MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	code = MPI_Comm_size(MPI_COMM_WORLD, &size);
 	if (rank == 0) {
-		printf_s("Rank %d, MPI_COMM_WORLD &size %d\n", rank, size);
+		printf_s("Rank %d, MPI_COMM_WORLD size %d\n", rank, size);
 	}
 
 	// ======================================
@@ -40,22 +41,39 @@ int main(int argc, char *argv[]) {
 	// 4. switch to mpiexec console and press enter
 	// 5. switch to Visual Studio ...
 	
-	/*if (rank == 0) {
+	if (rank == 0) {
 		getchar();
-	}*/
+	}
 
 	// ======================================
-
+	// Debug only
+	// wait while all processes call it
+	MPI_Barrier(MPI_COMM_WORLD);
 	// ======================================
-	// call example
 
-	//send_recv_example();
-
-	// wait for next example
+	// call examples
+	sendrecv_example();
+	
+	// Debug only
 	MPI_Barrier(MPI_COMM_WORLD);
 
-	//sendrecv_example();
 	reduce_example();
+	
+	// Debug only
+	fflush(stdout);
+	MPI_Barrier(MPI_COMM_WORLD);
+	
+	comm_cart_example();
+
+	// Debug only
+	fflush(stdout);
+	MPI_Barrier(MPI_COMM_WORLD);
+
+	comm_circle_example();
+	
+	// Debug only
+	fflush(stdout);
+	MPI_Barrier(MPI_COMM_WORLD);
 
 	// ======================================
 
