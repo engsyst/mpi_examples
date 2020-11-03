@@ -37,9 +37,10 @@ int main(int argc, char *argv[]) {
 	// For debbug
 	// 1. set breakpoints
 	// 2. run in debbug mode
-	// 3. attach to processes 
+	// 3. attach to all processes of your programm
 	// 4. switch to mpiexec console and press enter
 	// 5. switch to Visual Studio ...
+	// 6. enjoy ...
 	
 	if (rank == 0) {
 		getchar();
@@ -47,7 +48,7 @@ int main(int argc, char *argv[]) {
 
 	// ======================================
 	// Debug only
-	// wait while all processes call it
+	// waits while all processes call it
 	MPI_Barrier(MPI_COMM_WORLD);
 	// ======================================
 
